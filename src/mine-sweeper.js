@@ -23,9 +23,74 @@ const { NotImplementedError } = require('../extensions/index.js');
  *  [1, 1, 1]
  * ]
  */
-function minesweeper(/* matrix */) {
-  throw new NotImplementedError('Not implemented');
-  // remove line with error and write your code here
+function minesweeper(matrix) {
+  let map = [];
+
+  for (let i = 0; i < matrix.length; i += 1) {
+    let row = [];
+    for (let j = 0; j < matrix[0].length; j++) {
+      row.push(0);
+    }
+    map.push(row);
+  }
+
+  for (let i = 0; i < matrix.length; i += 1) {
+    let rowSize = matrix[0].length;
+    for (let j = 0; j < rowSize; j++) {
+      if (matrix[i][j]) {
+        if (i === 0 && j === 0) {
+          map[i][j+1] += 1;
+          map[i+1][j+1] += 1;
+          map[i+1][j] += 1;
+        } else if (i === 0 && j > 0) {
+          map[i][j-1] += 1;
+          map[i][j+1] += 1;
+          map[i+1][j-1] += 1;
+          map[i+1][j] += 1;
+          map[i+1][j+1] += 1;
+        } else if (i === 0 && j+1 === rowSize) {
+          map[i][j-1] += 1;
+          map[i+1][j-1] += 1;
+          map[i+1][j] += 1;
+        } else if (i > 0 && j+1 === rowSize) {
+          map[i-1][j] += 1;
+          map[i-1][j-1] += 1;
+          map[i][j-1] += 1;
+          map[i+1][j-1] += 1;
+          map[i+1][j] += 1;
+        } else if (i+1 === matrix.length && j+1 === rowSize) {
+          map[i-1][j] += 1;
+          map[i-1][j-1] += 1;
+          map[i][j-1] += 1;
+        } else if (i+1 === matrix.length && j > 0) {
+          map[i][j-1] += 1;
+          map[i-1][j-1] += 1;
+          map[i-1][j] += 1;
+          map[i-1][j+1] += 1;
+          map[i][j+1] += 1;
+        } else if (i+1 === matrix.length && j === 0) {
+          map[i-1][j] += 1;
+          map[i-1][j+1] += 1;
+          map[i][j+1] += 1;
+        } else if (i > 0 && j === 0) {
+          map[i-1][j] += 1;
+          map[i][j+1] += 1;
+          map[i-1][j] += 1;
+        } else if (i > 0 && j > 0) {
+          map[i-1][j] += 1;
+          map[i-1][j+1] += 1;
+          map[i][j+1] += 1;
+          map[i+1][j+1] += 1;
+          map[i+1][j] += 1;
+          map[i+1][j-1] += 1;
+          map[i][j-1] += 1;
+          map[i-1][j-1] += 1;
+        }
+      }
+    }
+  }
+
+  return map;
 }
 
 module.exports = {
