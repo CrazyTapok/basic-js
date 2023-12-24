@@ -28,7 +28,7 @@ function minesweeper(matrix) {
 
   for (let i = 0; i < matrix.length; i += 1) {
     let row = [];
-    for (let j = 0; j < matrix[0].length; j++) {
+    for (let j = 0; j < matrix[0].length; j += 1) {
       row.push(0);
     }
     map.push(row);
@@ -36,7 +36,7 @@ function minesweeper(matrix) {
 
   for (let i = 0; i < matrix.length; i += 1) {
     let rowSize = matrix[0].length;
-    for (let j = 0; j < rowSize; j++) {
+    for (let j = 0; j < rowSize; j += 1) {
       if (matrix[i][j]) {
         if (i === 0 && j === 0) {
           map[i][j+1] += 1;

@@ -16,7 +16,7 @@ function getSumOfDigits(n) {
   let arrayDigit = n.toString().split('');
   let sum = 0;
 
-  for (let i = 0; i < arrayDigit.length; i++) {
+  for (let i = 0; i < arrayDigit.length; i += 1) {
     let digit = Number(arrayDigit[i]);
     sum += digit;
   }

@@ -19,7 +19,7 @@ function countCats(matrix) {
 
   for (let i = 0; i < matrix.length; i += 1) {
     let row = matrix[i];
-    for (let j = 0; j < row.length; j++) {
+    for (let j = 0; j < row.length; j += 1) {
       if (row[j] === '^^') {
         answer += 1;
       }

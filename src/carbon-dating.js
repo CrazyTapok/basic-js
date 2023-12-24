@@ -23,9 +23,7 @@ function dateSample(sampleActivity) {
     return false;
   }
 
-  const log2 = 0.693;
-
-  let k = log2 / HALF_LIFE_PERIOD;
+  let k = Math.LN2 / HALF_LIFE_PERIOD;
   let t = Math.ceil(Math.log(MODERN_ACTIVITY / Number(sampleActivity)) / k);
 
   if (t > 0) {

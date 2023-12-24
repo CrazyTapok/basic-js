@@ -20,13 +20,70 @@ const { NotImplementedError } = require('../extensions/index.js');
  * 
  */
 class VigenereCipheringMachine {
-  encrypt() {
-    throw new NotImplementedError('Not implemented');
-    // remove line with error and write your code here
+  constructor(isReverse = true){
+    this.alphabet = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+    this.isReverse = isReverse;
   }
-  decrypt() {
-    throw new NotImplementedError('Not implemented');
-    // remove line with error and write your code here
+
+  encrypt(phrase, key) {
+    if (phrase === null || phrase === undefined || key === null || key === undefined) {
+      throw new Error('Incorrect arguments!');
+    }
+
+    let indexKey = 0;
+    let arrayLetters = phrase.split('');
+    let arrayNewLetters = [];
+
+    for (let i = 0; i < arrayLetters.length; i += 1) {
+      let letterIndex = this.alphabet.indexOf(arrayLetters[i].toUpperCase());
+
+      if (letterIndex !== -1) {
+        if (indexKey >= key.length) {
+          indexKey = 0;
+        }
+
+        let newIndexLetter = (letterIndex + this.alphabet.indexOf(key[indexKey].toUpperCase())) % 26;
+        indexKey += 1;
+        arrayNewLetters.push(this.alphabet[newIndexLetter]);
+      }else{
+        arrayNewLetters.push(arrayLetters[i]);
+      }
+    }
+    let answer = this.isReverse ? arrayNewLetters.join('') : arrayNewLetters.reverse().join('');
+    return answer;
+  }
+
+  decrypt(phrase, key) {
+    if (phrase === null || phrase === undefined || key === null || key === undefined) {
+      throw new Error('Incorrect arguments!');
+    }
+
+    let indexKey = 0;
+    let arrayLetters = phrase.split('');
+    let arrayNewLetters = [];
+
+    for (let i = 0; i < arrayLetters.length; i += 1) {
+      let letterIndex = this.alphabet.indexOf(arrayLetters[i].toUpperCase());
+
+      if (letterIndex !== -1) {
+        if (indexKey >= key.length) {
+          indexKey = 0;
+        }
+
+        let newIndexLetter = (letterIndex - this.alphabet.indexOf(key[indexKey].toUpperCase())) % 26;
+
+        if (newIndexLetter < 0) {
+          newIndexLetter = (newIndexLetter + 26) % 26;
+        }
+
+        indexKey += 1;
+        arrayNewLetters.push(this.alphabet[newIndexLetter]);
+      }else{
+        arrayNewLetters.push(arrayLetters[i]);
+      }
+    }
+    let answer = this.isReverse ? arrayNewLetters.join('') : arrayNewLetters.reverse().join('');
+    return answer;
   }
 }
 
